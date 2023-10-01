@@ -1,0 +1,12 @@
+# Ignore compiled Python files
+*.pyc
+
+# Ignore the virtual environment directory
+venv/
+
+# Ignore the Flask session directory
+flask_session/
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
