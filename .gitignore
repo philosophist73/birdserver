@@ -10,3 +10,7 @@ flask_session/
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
+
+#TODO: determine best way to manage config
+.env
+.flaskenv
