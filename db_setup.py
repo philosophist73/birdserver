@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv('.flaskenv')
 
 from config import Config
 from sqlalchemy import create_engine

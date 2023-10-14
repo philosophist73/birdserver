@@ -15,19 +15,31 @@ class BirdSighting(Base):
     id = mapped_column(Integer, primary_key=True, autoincrement=True)
     bird_id = mapped_column(Integer, ForeignKey('bird.id'), nullable=False)
     timestamp = mapped_column(DateTime, nullable=False)
-    #location = mapped_column(Geometry('POINT'))
     notes = mapped_column(String, nullable=True)
+    location = db.Column(String, nullable=True)
     
     def __repr__(self):
-        return f'<id: {self.id}, time: {self.timestamp}>'
+        return f'<id: {self.id}, bird_id: {self.bird_id}, timestamp: {self.timestamp}, notes: {self.notes}, location: {self.latitude}>'
     
-    def __init__(self, bird_id, timestamp, notes):
+    def __init__(self, bird_id, timestamp, notes, location):
         self.bird_id = bird_id
         self.timestamp = timestamp
-        #self.location = location
         self.notes = notes
+        self.location = location
     
-        
     @staticmethod
-    def create(bird_id, timestamp, notes=""):
-        pass
+    def create(bird_id, timestamp, notes, location):
+        try:
+            bird_sighting = BirdSighting(
+                bird_id=bird_id,
+                timestamp=timestamp,
+                notes=notes,
+                location=location
+            )
+
+            db.session.add(bird_sighting)
+            db.session.commit()
+
+            return bird_sighting
+        except Exception as e:
+            raise BirdSightingException(str(e))

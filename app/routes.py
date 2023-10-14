@@ -1,16 +1,21 @@
-import os
-import sqlalchemy
 from sqlalchemy.sql import text
 
 from datetime import datetime
-from flask import Blueprint, Flask, flash, redirect, render_template, request, session
-from flask_session import Session
+from flask import Blueprint, jsonify, Flask, flash, redirect, render_template, request, session, url_for
+from flask_caching import Cache
+from flask import session
 
-#my helper functions
-from app.helpers import apology, login_required
+from app import cache
+from app.helpers import apology, login_required, lookupNearbyAPI, lookupBirdDetails, getOpenCageLocation
 from app.models.account import Account, AccountException
+from app.models.bird import Bird, BirdException
+from app.models.birdsighting import BirdSighting, BirdSightingException
+from app.models.history import History, HistoryException
+from app.models.favorite import Favorite, FavoriteException
+from app.models.watch import Watch, WatchException
 
-birdserver = Blueprint('main', __name__)
+#TODO: move this to __init__.py
+birdserver = Blueprint('birdserver', __name__)
 
 @birdserver.route('/test')
 def test_page():
@@ -24,11 +29,9 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-
 @birdserver.route("/")
 @login_required
 def index():
-    """Show portfolio of stocks"""
     return render_template("index.html")
 
 @birdserver.get("/register")
@@ -37,6 +40,7 @@ def register_get():
 
 @birdserver.post("/register")
 def register_post():
+    print("VIEW: register")
     if not request.form.get("username"):
         return apology("must provide username", 400)
 
@@ -62,7 +66,7 @@ def login_get():
 
 @birdserver.post('/login')
 def login_post():
-
+    print("VIEW: login")
     # Ensure username was submitted
     if not request.form.get("username"):
         return apology("must provide username", 403)
@@ -78,7 +82,6 @@ def login_post():
     
     return redirect("/")
 
-
 @birdserver.route("/logout")
 def logout():
 
@@ -86,3 +89,125 @@ def logout():
     
     # Redirect user to login form
     return redirect("/")
+
+@birdserver.get('/search')
+@login_required
+def search_get():
+    print("VIEW: search")
+
+    birdname = request.args.get('bird')
+    attr = request.args.get('attr')
+    birds = Bird.search(attr, birdname)
+    
+    return render_template("birdresults.html", birds=birds)
+
+@birdserver.get("/birdticker")
+@cache.cached()
+def birdticker_get():
+    print("VIEW: birdticker")
+    latitude = request.args.get('latitude')
+    longitude = request.args.get('longitude')
+    response = lookupNearbyAPI(latitude, longitude)
+    
+    birds = [r['comName'] + ' sighted at ' + r['locName'] for r in response]
+  
+    return jsonify(birds)
+
+#TODO: why didnt the default cache key work?
+def species_cache_key():
+    species_code = request.args.get('species_code')
+    return f'custom_cache_key_{species_code}'
+
+#TODO: caching also caches the login
+@birdserver.get("/bird")
+@login_required
+#@cache.cached(key_prefix=species_cache_key)
+def birddetails_get():
+    print("VIEW: bird")
+    species_code = request.args.get('species_code')
+    bird_id = request.args.get('bird_id')
+    if (species_code):
+        bird_details = lookupBirdDetails(species_code)
+    elif (bird_id):
+        bird = Bird.getBirdbyID(bird_id)
+        bird_details = lookupBirdDetails(bird.species_code)
+    return render_template("bird.html", bird_details=bird_details)
+
+@birdserver.post("/create_sighting")
+@login_required
+def create_sighting_post():
+    print("VIEW: create_sighting")
+    speciesCode = request.form.get("speciesCode")
+    notes = request.form.get("notes")
+    timestamp = datetime.fromisoformat(request.form.get("timestamp"))
+    latitude = float(request.form.get("latitude"))
+    longitude = float(request.form.get("longitude"))
+    print(f"latitude: {latitude}, longitude: {longitude}")
+    
+    #use OpenCage to get location
+    location = "n/a"
+    if latitude and longitude:    
+        location = getOpenCageLocation(latitude, longitude)    
+    
+    #lookup bird
+    birds = Bird.search_by_species_code(speciesCode)
+    
+    #create bird_sighting
+    bird_sighting = BirdSighting.create(birds[0].id, timestamp, notes, location)
+    
+    #associate bird_sighting with history
+    history = History.create(session["user_id"], bird_sighting.id)
+    
+    return redirect(url_for('birdserver.history_get'))
+
+@birdserver.get("/history")
+@login_required
+def history_get():
+    print("VIEW: history")
+    user_id = session["user_id"]
+    results = BirdSighting.query.join(History).filter(History.account_id == user_id).all()
+    bird_sightings = []
+    for result in results:
+        bird = Bird.getBirdbyID(result.bird_id)
+        sighting = {
+            'bird_id': result.bird_id,
+            'common_name': bird.common_name,
+            'timestamp': result.timestamp,
+            'notes': result.notes,
+            'location': result.location
+        }
+        bird_sightings.append(sighting)
+    
+    return render_template("history.html", bird_sightings=bird_sightings)
+
+@birdserver.get("/favorites")
+@login_required
+def favorites_get():
+    print("VIEW: favorites")
+    #TODO: look up favorites 
+    return render_template("favorites.html")
+
+@birdserver.get("/watch")
+@login_required
+def watch_get():
+    print("VIEW: watch")
+    #TODO: look up watch 
+    return render_template("watch.html")
+
+#TODO: cache
+@birdserver.post("/translate_location")
+def process_location():
+    data = request.get_json()
+    latitude = data.get('latitude')
+    longitude = data.get('longitude')
+
+    return getOpenCageLocation(latitude, longitude)
+
+@birdserver.post("/add_favorite")
+def add_favorite():
+    bird_id = request.form.get("bird_id")
+    account_id = session["user_id"]
+    Favorite.create(account_id, bird_id)
+
+    #no response needed
+    return None

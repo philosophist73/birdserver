@@ -22,3 +22,18 @@ class History(Base):
     def __init__(self, account_id, birdsighting_id):
         self.account_id = account_id
         self.birdsighting_id = birdsighting_id
+        
+    @staticmethod
+    def create(account_id, birdsighting_id):
+        try:
+            history = History(
+                account_id=account_id,
+                birdsighting_id=birdsighting_id,
+            )
+
+            db.session.add(history)
+            db.session.commit()
+
+            return history
+        except Exception as e:
+            raise HistoryException(str(e))

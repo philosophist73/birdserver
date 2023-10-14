@@ -2,20 +2,49 @@
 nav .navbar-brand {
     font-size: xx-large;
 }
+.search-button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+  }
 
-/* Colors for brand */
-nav .navbar-brand .blue {
-    color: #537fbe;
+  .search-button:hover {
+    background: #0b7dda;
+  }
+
+  .scroll-container {
+    overflow: hidden;
+    position: fixed; /* Set position to fixed */
+    bottom: 0; /* Align to the bottom of the screen */
+    left: 0; /* Align to the left edge */
+    white-space: nowrap;
+    width: 100%;
 }
 
-nav .navbar-brand .red {
-    color: #ea433b;
+.bird-list {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+    
 }
 
-nav .navbar-brand .yellow {
-    color: #f5b82e;
+.bird-list li {
+    display: inline-block;
+    margin-right: 20px; /* Adjust spacing between birds */
 }
 
-nav .navbar-brand .green {
-    color: #2e944b;
+@keyframes scrollBirds {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
 }

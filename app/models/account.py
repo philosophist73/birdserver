@@ -4,6 +4,7 @@ from sqlalchemy.orm import mapped_column
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.models import db, Base
+from app.models.history import History
 
 #for login errors
 class AccountException(Exception):
@@ -31,6 +32,8 @@ class Account(Base):
         account = db.session.query(Account).filter(Account.username == username).first()
         if account is not None:
             if check_password_hash(account.password, password):
+                #TODO: should this be done in routes instead?
+                #TODO: change this to "account id" to match with Account. needs to be updated in routes.py as well
                 session["user_id"] = account.id
                 return True
         

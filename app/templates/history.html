@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <h1>Bird Sighting History</h1>
+    <div class="container">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-3"><strong><th>Timestamp</th></strong></div>
+                    <div class="col-md-3"><strong><th>Bird Name</th></strong></div>
+                    <div class="col-md-2"><strong><th>Notes</th></strong></div>
+                    <div class="col-md-4"><strong><th>Location</th></strong></div>
+                </div>
+            </li>
+            {% for sighting in bird_sightings %}
+                <li class="list-group-item sighting" data-latitude="{{ sighting.latitude }}" data-longitude="{{ sighting.longitude }}" data-id="{{ sighting.id }}">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4>{{ sighting.timestamp }}</h4>
+                        </div>
+                        <div class="col-md-3">
+                            <h5><a href="/bird?bird_id={{ sighting.bird_id }}">{{ sighting.common_name }}</a></h5>
+                        </div>
+                        <div class="col-md-3">
+                            <p>{{ sighting.notes }}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p>{{ sighting.location }}</p>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

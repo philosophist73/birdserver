@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    BirdResults
+{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <h1>Bird Results</h1>
+        <ul class="list-group">
+            {% for bird in birds %}
+                <li class="list-group-item">
+                    <a href="/bird?species_code={{bird.species_code}}">{{ bird.common_name }}</a><br>
+                    <strong>Scientific Name:</strong> {{ bird.scientific_name }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
