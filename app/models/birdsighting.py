@@ -43,3 +43,16 @@ class BirdSighting(Base):
             return bird_sighting
         except Exception as e:
             raise BirdSightingException(str(e))
+    
+    @staticmethod
+    def update(id, timestamp, notes, location):
+        try:
+            sighting = db.session.query(BirdSighting).filter(BirdSighting.id == id).first()
+            sighting.timestamp = timestamp
+            sighting.notes = notes
+            sighting.location = location
+
+            db.session.commit()
+            return sighting            
+        except Exception as e:
+            raise BirdSightingException(str(e))

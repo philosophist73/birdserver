@@ -142,7 +142,6 @@ def create_sighting_post():
     timestamp = datetime.fromisoformat(request.form.get("timestamp"))
     latitude = float(request.form.get("latitude"))
     longitude = float(request.form.get("longitude"))
-    print(f"latitude: {latitude}, longitude: {longitude}")
     
     #use OpenCage to get location
     location = "n/a"
@@ -170,6 +169,7 @@ def history_get():
     for result in results:
         bird = Bird.getBirdbyID(result.bird_id)
         sighting = {
+            'id': result.id,
             'bird_id': result.bird_id,
             'common_name': bird.common_name,
             'timestamp': result.timestamp,
@@ -211,3 +211,16 @@ def add_favorite():
 
     #no response needed
     return None
+
+@birdserver.post("/edit_sighting")
+def edit_sighting():
+    data = request.get_json()
+    timestamp = data.get('timestamp')
+    notes = data.get('notes')
+    location = data.get('location')
+    id = data.get('id')
+    updatedSighting = BirdSighting.update(id, timestamp, notes, location)
+    #return jsonify(updatedSighting)
+
+    #no response needed
+    return '', 200
