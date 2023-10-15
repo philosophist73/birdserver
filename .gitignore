@@ -2,7 +2,7 @@
 *.pyc
 
 # Ignore the virtual environment directory
-venv/
+.venv/
 
 # Ignore the Flask session directory
 flask_session/
@@ -14,3 +14,5 @@ __pycache__/
 #TODO: determine best way to manage config
 .env
 .flaskenv
+
+sqlite/birdserver.db

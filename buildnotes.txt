@@ -1,0 +1,4 @@
+this devcontainer is running on debian bullseye
+version of python is 3.11.5
+update apt: sudo apt update
+install sqlite3 CLI: sudo apt install sqlite3
