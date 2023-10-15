@@ -54,7 +54,7 @@ birdserver
     - NOTE: if you are in a dev container, my original implementation of this uses PostgreSQL. in fact, the dev container has two containers one for flask and one for the database. to use this:
         - 'pip install psycopg2'
         - in .flaskenv change SQLALCHEMY_DATABASE_URI to use "postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/postgres"
-        - if you want to see what's in the database, you can install pgAdmin at https://www.pgadmin.org/ and connect to this database on port 5000
+        - if you want to see what's in the database, you can install pgAdmin at https://www.pgadmin.org/ and connect to this database on port 5432
 
 *HOW TO RUN*
     - Launch application: from birdserver directory: 'flask run'
