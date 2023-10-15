@@ -24,6 +24,7 @@ class Account(Base):
         self.username = username
         self.password = password
 
+    #TODO: dont let two users logs in with same account
     @staticmethod
     def login(username, password):
         
