@@ -1,5 +1,6 @@
 birdserver
 
+How to run: from birdserver directory (app is a subdirectory)
 
 *local workstation setup*
 0. both dev container and WSL in VS Code

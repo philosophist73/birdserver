@@ -7,13 +7,21 @@
 {% block main %}
     <div class="container mt-5">
         <h1>Bird Results</h1>
-        <ul class="list-group">
-            {% for bird in birds %}
-                <li class="list-group-item">
-                    <a href="/bird?species_code={{bird.species_code}}">{{ bird.common_name }}</a><br>
-                    <strong>Scientific Name:</strong> {{ bird.scientific_name }}
-                </li>
-            {% endfor %}
-        </ul>
+        <table id="birdResultsTable" class="display">
+            <thead>
+                <tr>
+                    <th>Common Name</th>
+                    <th>Scientific Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bird in birds %}
+                    <tr>
+                        <td><a href="/bird?species_code={{bird.species_code}}">{{ bird.common_name }}</a></td>
+                        <td>{{ bird.scientific_name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 {% endblock %}

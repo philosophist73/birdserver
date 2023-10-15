@@ -93,6 +93,12 @@ $(document).ready( function () {
     }
 });
 
+//sort and search bird results
+$(document).ready(function() {
+    $('#birdResultsTable').DataTable();
+});
+
+
 //Open the bird sighting modal and populate it with row data
 $(document).ready( function () {
     $('#birdSightingsTable').on('click', '.edit-btn', function () {
