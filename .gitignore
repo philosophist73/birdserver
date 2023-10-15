@@ -15,4 +15,7 @@ __pycache__/
 .env
 .flaskenv
 
+#TODO: this allows people to use python venv if they arent using the dev container
+.venv
+
 sqlite/birdserver.db
