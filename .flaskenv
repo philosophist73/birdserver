@@ -14,7 +14,7 @@ SESSION_TYPE="filesystem"
 #NOTE: you need to create a .env file with SECRET_KEY. Key can be generated from python console with: python -c 'import secrets; print(secrets.token_hex())' 
 
 #SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/postgres"
-SQLALCHEMY_DATABASE_URI="sqlite:////workspaces/birdserver/sqlite/birdserver.db"
+SQLALCHEMY_DATABASE_URI="sqlite:////home/philosophist/birdserver/sqlite/birdserver.db"
 
 #FLASK_CACHING
 CACHE_TYPE="SimpleCache"

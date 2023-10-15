@@ -43,13 +43,22 @@ birdserver
             - make sure to do this in the birdserver directory
             - python3 -m venv .venv
             - source .venv/bin/activate
+        - BUG: set this is .flaskenv with actual path: SQLALCHEMY_DATABASE_URI="sqlite:////home/philosophist/birdserver/sqlite/birdserver.db"
         - Optional install sqlite3 CLI
             - update apt: sudo apt update
             - sudo apt install sqlite3
 
     DATABASE
-    - from birdserver directory: 'python3
-    
-    Launch application
-    from birdserver directory (app is a subdirectory): 'flask run'
+    - from birdserver directory: 'python db_setup.py'. This will set up your sqlite tables
+    - from birdserver directory: 'python load_birds.py'. This will load all the birds from the migrations/birds.csv
+    - NOTE: if you are in a dev container, my original implementation of this uses PostgreSQL. in fact, the dev container has two containers one for flask and one for the database. to use this:
+        - 'pip install psycopg2'
+        - in .flaskenv change SQLALCHEMY_DATABASE_URI to use "postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/postgres"
+        - if you want to see what's in the database, you can install pgAdmin at https://www.pgadmin.org/ and connect to this database on port 5000
+
+*HOW TO RUN*
+    - Launch application: from birdserver directory: 'flask run'
+    - IMPORTANT: make sure you click "yes" when the browser ask for your location
+
+
 
