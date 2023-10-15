@@ -10,12 +10,25 @@
         {% for bird_detail in bird_details %}
             <div class="row">
                 <div class="col-md-8 mx-auto">
+                    <!-- hidden field for jquery to update favorite and watch lists-->
+                    <input type="hidden" id="bird_id" name="bird_id" value="{{ bird_id }}">
                     <h1 class="text-center mb-4">{{ bird_detail.comName }}</h1>
                     <form >
                         <button type="button" class="btn btn-success ml-2" style="margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#birdSightingModal">
                             Create Bird Sighting
                         </button>
-                        <i class="far fa-heart ml-2" id="favorite-icon"></i>
+                        <!-- add heart icon- solid for favorite-->
+                        {% if favorite %}
+                            <i class="fas fa-heart ml-2" id="favorite-icon" style="color: red; font-size: 2em;"></i>
+                        {% else %}
+                            <i class="far fa-heart ml-2" id="favorite-icon" style="color: red; font-size: 2em;"></i>
+                        {% endif %}
+                        <!-- add eye icon- solid for watched-->
+                        {% if watch %}
+                            <i class="fa-solid fa-eye ml-2" id="watch-icon" style="font-size: 2em;"></i>
+                        {% else %}
+                            <i class="fa-solid fa-eye-slash ml-2" id="watch-icon" style="font-size: 2em;"></i>
+                        {% endif %}
                     </form>
                     <table class="table table-striped table-bordered">
                         {% for key, value in bird_detail.items() %}

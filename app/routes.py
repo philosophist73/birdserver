@@ -126,12 +126,18 @@ def birddetails_get():
     print("VIEW: bird")
     species_code = request.args.get('species_code')
     bird_id = request.args.get('bird_id')
+    
     if (species_code):
+        bird = Bird.get_bird_by_species_code(species_code)
         bird_details = lookupBirdDetails(species_code)
     elif (bird_id):
         bird = Bird.getBirdbyID(bird_id)
         bird_details = lookupBirdDetails(bird.species_code)
-    return render_template("bird.html", bird_details=bird_details)
+    
+    favorite = Favorite.isFavorite(session["user_id"], bird.id)
+    watch = Watch.isWatched(session["user_id"], bird.id)
+    
+    return render_template("bird.html", bird_details=bird_details, bird_id=bird.id, favorite=favorite, watch=watch)
 
 @birdserver.post("/create_sighting")
 @login_required
@@ -164,6 +170,7 @@ def create_sighting_post():
 def history_get():
     print("VIEW: history")
     user_id = session["user_id"]
+    #TODO: should this be in BirdSighting
     results = BirdSighting.query.join(History).filter(History.account_id == user_id).all()
     bird_sightings = []
     for result in results:
@@ -184,19 +191,22 @@ def history_get():
 @login_required
 def favorites_get():
     print("VIEW: favorites")
-    #TODO: look up favorites 
-    return render_template("favorites.html")
+    
+    birds = Favorite.getFavoriteBirds()
+    return render_template("favorites.html", birds=birds)
 
 @birdserver.get("/watch")
 @login_required
 def watch_get():
     print("VIEW: watch")
-    #TODO: look up watch 
-    return render_template("watch.html")
+    
+    birds = Watch.getWatchedBirds()
+    return render_template("watch.html", birds=birds)
 
 #TODO: cache
 @birdserver.post("/translate_location")
 def process_location():
+    print("VIEW: translate location")
     data = request.get_json()
     latitude = data.get('latitude')
     longitude = data.get('longitude')
@@ -205,15 +215,48 @@ def process_location():
 
 @birdserver.post("/add_favorite")
 def add_favorite():
-    bird_id = request.form.get("bird_id")
+    print("VIEW: add favorite")
+    data = request.get_json()
+    bird_id = data.get('id')
     account_id = session["user_id"]
-    Favorite.create(account_id, bird_id)
+    
+    Favorite.add(account_id, bird_id)
 
     #no response needed
-    return None
+    return '', 200
+
+@birdserver.post("/remove_favorite")
+def remove_favorite():
+    print("VIEW: remove favorite")
+    data = request.get_json()
+    bird_id = data.get('id')
+    account_id = session["user_id"]
+    
+    Favorite.remove(account_id, bird_id)
+
+    #no response needed
+    return '', 200
+
+#TODO: is this used anywhere?
+@birdserver.post("/is_favorite")
+def is_favorite():
+    print("VIEW: is favorite")
+    data = request.get_json()
+    print(data)
+    bird_id = data.get('bird_id')
+    account_id = session["user_id"]
+    
+    #True or false
+    response = Favorite.isFavorite(account_id, bird_id)
+    response_data = {'favorite': response}
+    return jsonify(response_data)
+
+    #no response needed
+    return '', 200
 
 @birdserver.post("/edit_sighting")
 def edit_sighting():
+    print("VIEW: edit sighting")
     data = request.get_json()
     timestamp = data.get('timestamp')
     notes = data.get('notes')
@@ -221,6 +264,32 @@ def edit_sighting():
     id = data.get('id')
     updatedSighting = BirdSighting.update(id, timestamp, notes, location)
     #return jsonify(updatedSighting)
+
+    #no response needed
+    return '', 200
+
+@birdserver.post("/add_watch")
+def add_watch():
+    print("VIEW: add watch")
+    data = request.get_json()
+    print(data)
+    bird_id = data.get('id')
+    account_id = session["user_id"]
+    
+    Watch.add(account_id, bird_id)
+
+    #no response needed
+    return '', 200
+
+@birdserver.post("/remove_watch")
+def remove_watch():
+    print("VIEW: remove watch")
+    data = request.get_json()
+    print(data)
+    bird_id = data.get('id')
+    account_id = session["user_id"]
+    
+    Watch.remove(account_id, bird_id)
 
     #no response needed
     return '', 200

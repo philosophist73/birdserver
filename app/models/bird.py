@@ -47,6 +47,12 @@ class Bird(Base):
     def search_by_species_code(species_code):
         return Bird.query.filter(Bird.species_code == species_code).all()
     
+    #TODO: rename this with underlines
     @staticmethod
     def getBirdbyID(bird_id):
         return Bird.query.filter(Bird.id == bird_id).first()
+    
+    #TODO: rename this with underlines
+    @staticmethod
+    def get_bird_by_species_code(species_code):
+        return Bird.query.filter(Bird.species_code == species_code).first()

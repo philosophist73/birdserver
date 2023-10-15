@@ -126,6 +126,8 @@ $(document).ready( function () {
 
 
 //Submit the bird sighting modal
+//TODO: dont submit if no changes were made
+//TODO: dont reload the page, just update the table
 $(document).ready( function () {
     $('#submitEdit').on('click', function () {
         // Gather edited data from modal fields
@@ -149,7 +151,7 @@ $(document).ready( function () {
             data: JSON.stringify(jsonData),
             success: function (response) {
                 // Handle success
-                console.log('Data edited successfully!');
+                //console.log('Data edited successfully!');
                 location.reload();
             },
             error: function (error) {
@@ -159,6 +161,98 @@ $(document).ready( function () {
         });
         //fixed a bug where the modal would not close
         //$('#editModal').modal('hide');
+    });
+});
+
+//add or remove a bird to favorites
+$(document).ready(function() {
+    $('#favorite-icon').click(function() {
+
+        var birdId = $('#bird_id').val();
+        var jsonData = {
+            id: birdId
+        };
+
+        //this is a favorite
+        if ($('#favorite-icon').hasClass('fas')) {
+            console.log('fas');
+            $.ajax({
+                url: '/remove_favorite',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(jsonData),
+                success: function (response) {
+                    $('#favorite-icon').removeClass('fas').addClass('far');
+                },
+                error: function (error) {
+                    console.error('Error editing data:', error);
+                }
+            });
+        }
+        else {
+            console.log('far');
+            $.ajax({
+                url: '/add_favorite',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(jsonData),
+                success: function (response) {
+                    // Handle success
+                    $('#favorite-icon').removeClass('far').addClass('fas');
+                    console.log('Data edited successfully!');
+                },
+                error: function (error) {
+                    // Handle error
+                    console.error('Error editing data:', error);
+                }
+            });
+        }
+    });
+});
+
+//add or remove a bird to watch
+$(document).ready(function() {
+    $('#watch-icon').click(function() {
+
+        var birdId = $('#bird_id').val();
+        var jsonData = {
+            id: birdId
+        };
+
+        //this is a favorite
+        if ($('#watch-icon').hasClass('fa-eye')) {
+            console.log('fa-eye');
+            $.ajax({
+                url: '/remove_watch',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(jsonData),
+                success: function (response) {
+                    $('#watch-icon').removeClass('fa-eye').addClass('fa-eye-slash');
+                },
+                error: function (error) {
+                    console.error('Error editing data:', error);
+                }
+            });
+        }
+        else {
+            console.log('fa-eye-slash');
+            $.ajax({
+                url: '/add_watch',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(jsonData),
+                success: function (response) {
+                    // Handle success
+                    $('#watch-icon').removeClass('fa-eye-slash').addClass('fa-eye');
+                    console.log('Data edited successfully!');
+                },
+                error: function (error) {
+                    // Handle error
+                    console.error('Error editing data:', error);
+                }
+            });
+        }
     });
 });
 
