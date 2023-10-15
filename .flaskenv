@@ -2,8 +2,7 @@
 FLASK_ENV="development"
 
 #TODO- why arent these needed anymore??
-PYTHONPATH="/workspaces/birdserver"
-FLASK_APP="app"
+#FLASK_APP="app"
 
 #HTTP SESSION
 SESSION_PERMANENT="False"
@@ -14,7 +13,8 @@ SESSION_TYPE="filesystem"
 #NOTE: you need to create a .env file with SECRET_KEY. Key can be generated from python console with: python -c 'import secrets; print(secrets.token_hex())' 
 
 #SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/postgres"
-SQLALCHEMY_DATABASE_URI="sqlite:////home/philosophist/birdserver/sqlite/birdserver.db"
+#TODO: I havent figured out how to make this relative yet. Please update if you arent in dev container environment
+SQLALCHEMY_DATABASE_URI="sqlite:////workspaces/birdserver/sqlite/birdserver.db"
 
 #FLASK_CACHING
 CACHE_TYPE="SimpleCache"
