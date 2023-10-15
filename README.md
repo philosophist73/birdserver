@@ -2,6 +2,11 @@ birdserver
 
 
 *local workstation setup*
+0. both dev container and WSL in VS Code
+- generate secret key and add to .flaskenv 
+    - python -c 'import secrets; print(secrets.token_hex())'
+    -copy paste the output of that to SECRET_KEY
+    
 1. dev container (recommended)
 - this is preferred way to run this app
 - requires VS Code and Docker Desktop installed
