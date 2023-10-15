@@ -1,32 +1,31 @@
 # Birdserver
 ### Video Demo:  <URL HERE>
 ### Description: 
-A personal website to log bird sightings and favorite birds and add a watch list of birds you want to see. This application connects with Cornell Labs eBird API for detailed bird information and
+A personal website to log bird sightings and favorite birds and add a watch list of birds you want to see. This application connects with Cornell Labs eBird API for detailed bird information and OpenCage to translate GPS location to an address
+
+### Details:
+    This was my CS50x final project. In the last assignment, CS Finance, we were introduced to Flask and basic web development. I decided i wanted to expand and go deep into learning how to do web development with Flask.
+    Goals:
+    - setup a full development environment outside of CS50
+    - use VS Code and dev container integration with Docker to make it easy to share my app
+    - expand use of Flask and build a moderate sized application with multiple modules and directories
+    - Use SQLAclhemy for database access and convenient database scheme creation with the ORM framework
+    - Use and connect to PostgreSQL and pgadmin
+    - Create requirements using basic use cases
+    - Create a high level software architecture and database design
+    - Organize my work with Jira
+
 ### Github: 
 https://github.com/philosophist73/birdserver.git
 
-#### HOW TO SETUP
+### HOW TO SETUP:
+    **Clone Repo**
+    - https://github.com/philosophist73/birdserver.git
 
-    SECRETS
-    - .env
-        - create an .env file in birdserver directory (~/birdserver/.env)
-    - Flask SECRET_KEY
-        - generate a Flask secret key with this command in the python command line: python -c 'import secrets; print(secrets.token_hex())'
-        - add an entry to the .env file for SECRET_KEY and copy/paste the output of that as the value (SECRET_KEY="")
-    - EBIRD API 
-        - create a ebird API account to generate an API token. Token can be generated from https://ebird.org/api/keygen
-        - add an EBIRD_TOKEN entry with that value in the .env file (EBIRD_TOKEN="")
-        - Alternatively contact me directly and I will provide
-    - OPENCAGE API 
-        - create a opencage API account to generate an API key. Key can be generated from https://opencagedata.com/dashboard#geocoding
-        - add an OPENCAGE_KEY entry with that value in the .env file (OPENCAGE_KEY="")
-        - Alternatively contact me directly and I will provide
-
-    LOCAL WORKSTATION
-
+    **Setup Local Workstation**
     Two options:   
     1. dev container (recommended)
-        - this is preferred way to run this app
+        - this is preferred way to run this app. When you clone the repo into vscode, it will automatically ask you if you want to connect to the dev container.
         - requires VS Code (I am using 1.83.1) and Docker Desktop (I am using 4.24.1) installed
             - https://code.visualstudio.com/docs/devcontainers/containers
             - https://www.docker.com/products/docker-desktop/
@@ -52,16 +51,31 @@ https://github.com/philosophist73/birdserver.git
         - Optional install sqlite3 CLI
             - update apt: sudo apt update
             - sudo apt install sqlite3
-
-    DATABASE
+            
+    **Set up Secrets**
+    - .env
+        - create an .env file in birdserver directory (~/birdserver/.env)
+    - Flask SECRET_KEY
+        - generate a Flask secret key with this command in the python command line: python -c 'import secrets; print(secrets.token_hex())'
+        - add an entry to the .env file for SECRET_KEY and copy/paste the output of that as the value (SECRET_KEY="")
+    - EBIRD API 
+        - create a ebird API account to generate an API token. Token can be generated from https://ebird.org/api/keygen
+        - add an EBIRD_TOKEN entry with that value in the .env file (EBIRD_TOKEN="")
+        - Alternatively contact me directly and I will provide
+    - OPENCAGE API 
+        - create a opencage API account to generate an API key. Key can be generated from https://opencagedata.com/dashboard#geocoding
+        - add an OPENCAGE_KEY entry with that value in the .env file (OPENCAGE_KEY="")
+        - Alternatively contact me directly and I will provide
+    
+    **Setup Database if NOT running in dev container**
     - from birdserver directory: 'python db_setup.py'. This will set up your sqlite tables
     - from birdserver directory: 'python load_birds.py'. This will load all the birds from the migrations/birds.csv
-    - NOTE: if you are in a dev container, my original implementation of this uses PostgreSQL. in fact, the dev container has two containers one for flask and one for the database. to use this:
+    - **BUG**: if you are in a dev container, my original implementation of this uses PostgreSQL. in fact, the dev container has two containers one for flask and one for the database. to use this:
         - 'pip install psycopg2'
         - in .flaskenv change SQLALCHEMY_DATABASE_URI to use "postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/postgres"
         - if you want to see what's in the database, you can install pgAdmin at https://www.pgadmin.org/ and connect to this database on port 5432
 
-*HOW TO RUN*
+### HOW TO RUN:
     - Launch application: from birdserver directory: 'flask run'
     - IMPORTANT: make sure you click "yes" when the browser ask for your location
 
