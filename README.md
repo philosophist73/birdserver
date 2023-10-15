@@ -4,16 +4,36 @@
 A personal website to log bird sightings and favorite birds and add a watch list of birds you want to see. This application connects with Cornell Labs eBird API for detailed bird information and OpenCage to translate GPS location to an address
 
 ### Details:
-    This was my CS50x final project. In the last assignment, CS Finance, we were introduced to Flask and basic web development. I decided i wanted to expand and go deep into learning how to do web development with Flask.
-    Goals:
-    - setup a full development environment outside of CS50
-    - use VS Code and dev container integration with Docker to make it easy to share my app
-    - expand use of Flask and build a moderate sized application with multiple modules and directories
-    - Use SQLAclhemy for database access and convenient database scheme creation with the ORM framework
-    - Use and connect to PostgreSQL and pgadmin
-    - Create requirements using basic use cases
-    - Create a high level software architecture and database design
-    - Organize my work with Jira
+    This was my CS50x final project. In the final, week 9 assignment, CS Finance, I was introduced to Flask and basic web development. I decided i wanted to expand and go deep into learning how to do web development with Flask.
+    Project Goals (completed):
+        - expand my knowledge of coding in python in a moderate-sized application
+        - setup a full development environment outside of CS50
+        - learn VS Code and dev container integration with Docker to make it easy to share my app
+        - learn Github for my source code repositort
+        - Document requirements using basic use cases
+        - Create a high level software architecture and database design
+        - Organize my work with Jira
+        - expand knowledge of Flask by building a moderate sized application with multiple modules and directories
+        - Learn SQLAclhemy for database access and convenient database scheme creation with the ORM framework
+        - Learn and integrate PostgreSQL and pgadmin for database
+        - Learn how to integrate with APIs including ebird API for bird information and OpenCage to translate browser GPS coordinates to a nearby address
+    Future goals:
+        - polish up the UI and fix bugs
+        - ensure the application is fully thread safe for multiple users
+        - all upload of photos and audio files for bird sightings
+        - implement collaboration features so users can see each other favorites and watch lists
+        - display photos for all birds in the database
+        - create a web application so this can be used on mobile devices
+        - package the application in a docker container that i can deploy
+        - create an automated test framework
+        - create a CI/CD pipeline
+        - deploy the app to public cloud (likely GCP cloud run and CloudSQL)
+        - integrate with AI APIs like Cornell Labs Merlin to identify birds by photo or audio
+    What the app does:
+        The application provides a simplistic web application for logging bird sightings, seeing a history of bird sightings, flagging birds as a favorite so you can see all the birds you like, and flagging birds to watch so you can see all the birds that you'd like to find. I started with the framework provided by CS50 finance, but quickly overhauled 95% of it, with only the Login feature and the apology feature remaining. 
+    Primary features: 
+        - Account management: the user will be able to register for an account
+    
 
 ### Github: 
 https://github.com/philosophist73/birdserver.git
