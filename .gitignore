@@ -11,11 +11,7 @@ flask_session/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 
-#TODO: determine best way to manage config
+# this is where people need to EBIRD_TOKEN, OPENCAGE_KEY, and SECRET_KEY
 .env
-.flaskenv
-
-#TODO: this allows people to use python venv if they arent using the dev container
-.venv
 
 sqlite/birdserver.db
