@@ -96,6 +96,7 @@ https://github.com/philosophist73/birdserver.git
             - python3 -m venv .venv
             - source .venv/bin/activate
         - BUG: set this is .flaskenv with actual path: SQLALCHEMY_DATABASE_URI="sqlite:////home/philosophist/birdserver/sqlite/birdserver.db"
+        - install python modules from birdserver with 'pip install -r requirements.txt'
         - Optional install sqlite3 CLI
             - update apt: sudo apt update
             - sudo apt install sqlite3
