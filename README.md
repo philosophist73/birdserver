@@ -53,13 +53,14 @@ https://github.com/philosophist73/birdserver.git
     **Setup Local Workstation**
     Two options:   
     1. dev container (recommended)
-        - this is preferred way to run this app. When you clone the repo into vscode, it will automatically ask you if you want to connect to the dev container.
-        - requires VS Code (I am using 1.83.1) and Docker Desktop (I am using 4.24.1) installed
+        - requires WSL2, VS Code (I am using 1.83.1) and Docker Desktop (I am using 4.24.1) installed
+            - https://learn.microsoft.com/en-us/windows/wsl/install
             - https://code.visualstudio.com/docs/devcontainers/containers
             - https://www.docker.com/products/docker-desktop/
         - dev container extension installed for VS Code. 
             - My version is 0.315.1
             - VSCode extension id is: ms-vscode-remote.remote-containers
+        - clone the repo into VSCode: https://github.com/philosophist73/birdserver.git  
 
     2. directly configuring python environment
         - Windows requires WSL in VS Code for windows
