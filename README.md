@@ -3,7 +3,10 @@
 ### Description: 
 A personal website to log bird sightings and favorite birds and add a watch list of birds you want to see. This application connects with Cornell Labs eBird API for detailed bird information and OpenCage to translate GPS location to an address
 
-### Details:
+### Github: 
+https://github.com/philosophist73/birdserver.git
+
+### Goals:
     This was my CS50x final project. In the final, week 9 assignment, CS Finance, I was introduced to Flask and basic web development. I decided i wanted to expand and go deep into learning how to do web development with Flask.
     Project Goals (completed):
         - Document requirements using basic use cases
@@ -34,7 +37,8 @@ A personal website to log bird sightings and favorite birds and add a watch list
         - integrate with AI APIs like Cornell Labs Merlin to identify birds by photo or audio
     What the app does:
         The application provides a simplistic web application for logging bird sightings, seeing a history of bird sightings, flagging birds as a favorite so you can see all the birds you like, and flagging birds to watch so you can see all the birds that you'd like to find. I started with the framework provided by CS50 finance, but quickly overhauled 95% of it, with only the Login feature and the apology feature remaining. 
-    Primary features: 
+
+### Features:
         - Account management: the user can register for an account, login, and logout. The account saves all of their bird sighting information and persists from session to session. The user won't see any of the other app features until they log in
         - Bird ticker: at the bottom of every page is a streaming ticker of notable bird sightings in the user's area in the last 5 days. These sightings are pulled from eBird API
         - Bird Search: the user can search for birds by common name, scientific name, or species code (a cornell labs ebird code). The results are returned in a sortable and searchable tabled
@@ -42,10 +46,25 @@ A personal website to log bird sightings and favorite birds and add a watch list
         - History: the user will see a list of all bird sightings in a sortable and searchable table. The user is able to edit the notes or time of a bird sighting, but not the bird (future feature)
         - Favorites: the user is able to "heart" a bird to add it to the favorites list. The favorites list displays all the birds the user has previous "hearted"
         - Watch List: the user is able to "eye" a bird to add it to the watch list. The watch list displays all the birds the user has previous "eyed" 
-    
 
-### Github: 
-https://github.com/philosophist73/birdserver.git
+### Details:
+    - This is a python flask application with bootstrap CSS and javascript front end and a postgresql backend, plus API integration
+    - the root directory of the project contains:
+        - .devcontainer directory: setup for a vs code dev container integration with docker desktop dev enviroments. This makes it easy for me to share my code in a full working environment
+        - .vscode: configuration for my vscode environment. i didnt modify this
+        - .flaskenv: configuration settings for the application
+        - .env: secret config settings
+        - .gitignore: files to ignore such as __pycache__ executables
+        - config.py: reads in .flaskenv and makes ready for use by the application. Will be helpful in future when i build a test framework
+        - db_setup.py: using SQLAlchemy ORM, creates the database schema
+        - load_birds.py: using SQLAlchemy ORM, loads in birds.csv file to load basic bird information (common name, species code, and scientific name). Any other bird information i lookup at ebird API using the species code
+        - README.md: this file!
+        - requirements: all the python modules used by this app. I made sure to add to the .devcontainer/devconatiner.json to make sure these are installed when the dev container is created
+        - run.py: no longer used. i settled on always running 'flask run' for my application
+            - /app:
+                - 
+
+
 
 ### HOW TO SETUP:
     **Clone Repo**
