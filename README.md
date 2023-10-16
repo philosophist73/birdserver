@@ -53,14 +53,29 @@ https://github.com/philosophist73/birdserver.git
     **Setup Local Workstation**
     Two options:   
     1. dev container (recommended)
-        - requires WSL2, VS Code (I am using 1.83.1) and Docker Desktop (I am using 4.24.1) installed
-            - https://learn.microsoft.com/en-us/windows/wsl/install
-            - https://code.visualstudio.com/docs/devcontainers/containers
+        - install VS Code
+            - I am using 1.83.1
+        - for windows, install WSL2
+            -https://learn.microsoft.com/en-us/windows/wsl/install
+            - don't forget to open your command prompt up as admin
+            - 'wsl --install' to install it
+            - after install, i dont know if this is needed, but i set my default distro to ubuntu with: 'wsl --setdefault Ubuntu'. You can verify this with 'wsl -l'
+            - reboot your machine. when it comes back up, ubuntu will likely prompt you to set a username password. Chose something you will remember!
+        - install docker desktop
             - https://www.docker.com/products/docker-desktop/
-        - dev container extension installed for VS Code. 
+                -make sure docker destop is configured to "Start Docker Desktop when you log in" and "Use the WSL 2 based engine" (both should be checked in docker destop settings- gear icon)
+                -make sure it is running before trying to run in VS Cvode
+        - install WSL extension for VS Code
+            - v0.81.8
+            - extension id is: ms-vscode-remote.remote-containers
+        - install dev container extension for VS Code. 
             - My version is 0.315.1
-            - VSCode extension id is: ms-vscode-remote.remote-containers
-        - clone the repo into VSCode: https://github.com/philosophist73/birdserver.git  
+            - extension id is: ms-vscode-remote.remote-containers
+        - from within VS Code open the command palette (ctrl-shift-p) and select 'Clone Repository in Container Volume'
+        - enter 'https://github.com/philosophist73/birdserver.git' (Without quotes) at the prompt
+        - this should load my repo into a new container running vscode. If this works, in the bottom left, you will see highlight in green: "dev container: python 3 & PostgresSQL
+            - note this is where you can rebuild the container if made changes and want to revert back to what is in my github repo
+        - check docker desktop. you should see the container running. it might have a random name. you will also see images that this container uses such as postgres, alpine, and birdserver_devcontainer-app
 
     2. directly configuring python environment
         - Windows requires WSL in VS Code for windows
