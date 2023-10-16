@@ -6,17 +6,20 @@ A personal website to log bird sightings and favorite birds and add a watch list
 ### Details:
     This was my CS50x final project. In the final, week 9 assignment, CS Finance, I was introduced to Flask and basic web development. I decided i wanted to expand and go deep into learning how to do web development with Flask.
     Project Goals (completed):
-        - expand my knowledge of coding in python in a moderate-sized application
-        - setup a full development environment outside of CS50
-        - learn VS Code and dev container integration with Docker to make it easy to share my app
-        - learn Github for my source code repositort
         - Document requirements using basic use cases
-        - Create a high level software architecture and database design
+        - Create a high level software architecture and database design before implementation
         - Organize my work with Jira
+        - expand my knowledge of coding with Python by creating a moderate-sized web application
+        - setup a full development environment outside of CS50
+        - learn VS Code and dev container integration with Docker to make it easy to share my code with others
+        - learn Github for my source code repository
         - expand knowledge of Flask by building a moderate sized application with multiple modules and directories
+        - learn more about HTML, CSS, and javascript by adding some dynamic features to the site
         - Learn SQLAclhemy for database access and convenient database scheme creation with the ORM framework
         - Learn and integrate PostgreSQL and pgadmin for database
-        - Learn how to integrate with APIs including ebird API for bird information and OpenCage to translate browser GPS coordinates to a nearby address
+        - Learn how to integrate with APIs including ebird API for bird information and OpenCage to translate browser GPS coordinates to a nearby address. 
+        - Learn how to use Postman to test APIs before coding in the application
+        - learn how to leverage LLMs like github copilot, chatgpt, and bard for software development
     Future goals:
         - polish up the UI and fix bugs
         - ensure the application is fully thread safe for multiple users
@@ -32,7 +35,13 @@ A personal website to log bird sightings and favorite birds and add a watch list
     What the app does:
         The application provides a simplistic web application for logging bird sightings, seeing a history of bird sightings, flagging birds as a favorite so you can see all the birds you like, and flagging birds to watch so you can see all the birds that you'd like to find. I started with the framework provided by CS50 finance, but quickly overhauled 95% of it, with only the Login feature and the apology feature remaining. 
     Primary features: 
-        - Account management: the user will be able to register for an account
+        - Account management: the user can register for an account, login, and logout. The account saves all of their bird sighting information and persists from session to session. The user won't see any of the other app features until they log in
+        - Bird ticker: at the bottom of every page is a streaming ticker of notable bird sightings in the user's area in the last 5 days. These sightings are pulled from eBird API
+        - Bird Search: the user can search for birds by common name, scientific name, or species code (a cornell labs ebird code). The results are returned in a sortable and searchable tabled
+        - Bird Sighting: from the bird search results, the user can select a bird to log a bird sighting. The bird sighting automatically captures location and timestamp. It also allows the user to enter notes. The location is translated to nearby address using the OpenCage API
+        - History: the user will see a list of all bird sightings in a sortable and searchable table. The user is able to edit the notes or time of a bird sighting, but not the bird (future feature)
+        - Favorites: the user is able to "heart" a bird to add it to the favorites list. The favorites list displays all the birds the user has previous "hearted"
+        - Watch List: the user is able to "eye" a bird to add it to the watch list. The watch list displays all the birds the user has previous "eyed" 
     
 
 ### Github: 
