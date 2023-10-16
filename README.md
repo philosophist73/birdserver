@@ -1,5 +1,5 @@
 # Birdserver
-### Video Demo:  <URL HERE>
+### Video Demo: https://youtu.be/H2qSsxp02Aw
 ### Description: 
 A personal website to log bird sightings and favorite birds and add a watch list of birds you want to see. This application connects with Cornell Labs eBird API for detailed bird information and OpenCage to translate GPS location to an address
 
@@ -46,26 +46,6 @@ https://github.com/philosophist73/birdserver.git
         - History: the user will see a list of all bird sightings in a sortable and searchable table. The user is able to edit the notes or time of a bird sighting, but not the bird (future feature)
         - Favorites: the user is able to "heart" a bird to add it to the favorites list. The favorites list displays all the birds the user has previous "hearted"
         - Watch List: the user is able to "eye" a bird to add it to the watch list. The watch list displays all the birds the user has previous "eyed" 
-
-### Details:
-    - This is a python flask application with bootstrap CSS and javascript front end and a postgresql backend, plus API integration
-    - the root directory of the project contains:
-        - .devcontainer directory: setup for a vs code dev container integration with docker desktop dev enviroments. This makes it easy for me to share my code in a full working environment
-        - .vscode: configuration for my vscode environment. i didnt modify this
-        - .flaskenv: configuration settings for the application
-        - .env: secret config settings
-        - .gitignore: files to ignore such as __pycache__ executables
-        - config.py: reads in .flaskenv and makes ready for use by the application. Will be helpful in future when i build a test framework
-        - db_setup.py: using SQLAlchemy ORM, creates the database schema
-        - load_birds.py: using SQLAlchemy ORM, loads in birds.csv file to load basic bird information (common name, species code, and scientific name). Any other bird information i lookup at ebird API using the species code
-        - README.md: this file!
-        - requirements: all the python modules used by this app. I made sure to add to the .devcontainer/devconatiner.json to make sure these are installed when the dev container is created
-        - run.py: no longer used. i settled on always running 'flask run' for my application
-            - /app:
-                - 
-
-
-
 ### HOW TO SETUP:
     **Clone Repo**
     - https://github.com/philosophist73/birdserver.git
@@ -128,5 +108,40 @@ https://github.com/philosophist73/birdserver.git
     - Launch application: from birdserver directory: 'flask run'
     - IMPORTANT: make sure you click "yes" when the browser ask for your location
 
-
-
+### Code Details:
+    - This is a python flask application with bootstrap CSS and javascript front end and a postgresql backend, plus API integration
+    - /birdserver
+        - /.devcontainer directory: setup for a vs code dev container integration with docker desktop dev enviroments. This makes it easy for me to share my code in a full working environment
+        - /.vscode: configuration for my vscode environment. i didnt modify this
+        - .flaskenv: configuration settings for the application
+        - .env: secret config settings
+        - .gitignore: files to ignore such as __pycache__ executables
+        - config.py: reads in .flaskenv and makes ready for use by the application. Will be helpful in future when i build a test framework
+        - db_setup.py: using SQLAlchemy ORM, creates the database schema
+        - load_birds.py: using SQLAlchemy ORM, loads in birds.csv file to load basic bird information (common name, species code, and scientific name). Any other bird information i lookup at ebird API using the species code
+        - README.md: this file!
+        - requirements: all the python modules used by this app. I made sure to add to the .devcontainer/devconatiner.json to make sure these are installed when the dev container is created
+        - run.py: no longer used. i settled on always running 'flask run' for my application
+            - /app
+                - __init__py: launches the app and configures Flask, Flask-Caching, Flask-Session, and SQLAlchemy db
+                - helpers.py: adapting from cs50 finance app. reuses apology (although i changed the gif to gandalf) and login_required method used as a decorator. Contains methods that make calls to eBird and OpenCage APIs
+                - routes.py: all of the "Views" for my flask application. Sets up one blueprint, but i dont use it in any useful way.
+                - /models
+                    - __init__.py sets up all my SQLAlchemy ORM Base classes
+                    - account.py: model for Account table. Also encapsulates methods for interacting with an Account like login and logout
+                    - bird.py: model for Bird table. Also encapsulates methods for interacting with a Bird like search
+                    - birdsighting.py: model for Bird table. Also encapsulates methods for interacting with a Bird like create and update. Has FKs to account and history (this is a bug, just realized it needs to be added).
+                    - favorite.py: model for Favorite table. Also encapsulates methods for interacting with a FAvorite like setting favorite, getting all favorites, and checking if a bird is a favorite. FKs to account and bird
+                    - history.py: model for History table. Also encapsulates methors for interacting with History including creating a new entry. FK to account and bird
+                    - watch.py: model for Watch table. Also encapsulates methods for interacting with a Watch like setting watch, getting all watches, and checking if a bird is a each. FKs to account and bird
+                - /static
+                    - /favicon: bird icon for navbar, browser tab, and bookmarks
+                    - birdserver.js: all the javascript used for this app. needs to be refactored to consolidate the event handling in one place and fire only for appropriate pages
+                    - bootstrap.min.css: bootswatch css override. not currently used
+                    - styles.css: custom css. used for my search bar and the bird ticker (this was hard and took a lot of hunting and pecking on internet and querying LLMs. need to optimize the performance)
+                - /templates: all my HTML pages
+            - /migrations:
+                - birds.csv: i used a really handy VSCode extension called Rainbow CSV to trim this down to just 3 fields for my database. the rest of the data i go to the ebird API when i need it
+            - /sqlite: directory for birdserver.db, which will be created by db_setup.py
+            - /tests: not yet used
+                
