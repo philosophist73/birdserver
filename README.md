@@ -99,6 +99,7 @@ https://github.com/philosophist73/birdserver.git
     
     **Setup Database if NOT running in dev container**
     - from birdserver directory: 'python db_setup.py'. This will set up your sqlite tables
+        - BUG: if this fails, you may need to create a /sqlite directory at top of your workspace (ie same level as /app and /migrations) 
     - from birdserver directory: 'python load_birds.py'. This will load all the birds from the migrations/birds.csv
     - **BUG**: if you are in a dev container, my original implementation of this uses PostgreSQL. in fact, the dev container has two containers one for flask and one for the database. to use this:
         - 'pip install psycopg2'
