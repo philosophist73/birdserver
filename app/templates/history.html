@@ -19,22 +19,22 @@
                 </tr>
             </thead>
             <tbody>
-                {% for sighting in bird_sightings %}
+                {% for history_item in history_list %}
                     <tr>
-                        <td>{{ sighting.timestamp }}</td>
+                        <td>{{ history_item.timestamp }}</td>
                         <td>
-                            <a href="/bird?bird_id={{ sighting.bird_id }}">
-                                {{ sighting.common_name }}
+                            <a href="/bird?bird_id={{ history_item.bird_id }}">
+                                {{ history_item.common_name }}
                             </a>
                         </td>
-                        <td>{{ sighting.notes }}</td>
-                        <td>{{ sighting.location }}</td>
+                        <td>{{ history_item.notes }}</td>
+                        <td>{{ history_item.location }}</td>
                         <td>
                             <button type="button" class="btn btn-primary edit-btn" data-toggle="modal" data-target="#editModal">
                                 Edit
                             </button>
                         </td>
-                        <td style="display:none;"> {{ sighting.id }} </td>
+                        <td style="display:none;"> {{ history_item.sighting_id }} </td>
                     </tr>
                 {% endfor %}
             </tbody>

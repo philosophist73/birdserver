@@ -7,6 +7,5 @@ db = SQLAlchemy(model_class=Base)
 from app.models.account import Account
 from app.models.bird import Bird
 from app.models.birdsighting import BirdSighting
-from app.models.history import History
 from app.models.favorite import Favorite
 from app.models.watch import Watch

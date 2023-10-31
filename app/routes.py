@@ -10,7 +10,6 @@ from app.helpers import apology, login_required, lookupNearbyAPI, lookupBirdDeta
 from app.models.account import Account, AccountException
 from app.models.bird import Bird, BirdException
 from app.models.birdsighting import BirdSighting, BirdSightingException
-from app.models.history import History, HistoryException
 from app.models.favorite import Favorite, FavoriteException
 from app.models.watch import Watch, WatchException
 
@@ -137,7 +136,9 @@ def birddetails_get():
     favorite = Favorite.isFavorite(session["user_id"], bird.id)
     watch = Watch.isWatched(session["user_id"], bird.id)
     
-    return render_template("bird.html", bird_details=bird_details, bird_id=bird.id, favorite=favorite, watch=watch)
+    image_url = bird.image_url
+    
+    return render_template("bird.html", bird_details=bird_details, bird_id=bird.id, favorite=favorite, watch=watch, image_url=image_url)
 
 @birdserver.post("/create_sighting")
 @login_required
@@ -158,10 +159,7 @@ def create_sighting_post():
     birds = Bird.search_by_species_code(speciesCode)
     
     #create bird_sighting
-    bird_sighting = BirdSighting.create(birds[0].id, timestamp, notes, location)
-    
-    #associate bird_sighting with history
-    history = History.create(session["user_id"], bird_sighting.id)
+    bird_sighting = BirdSighting.create(session["user_id"], birds[0].id, timestamp, notes, location)
     
     return redirect(url_for('birdserver.history_get'))
 
@@ -169,23 +167,24 @@ def create_sighting_post():
 @login_required
 def history_get():
     print("VIEW: history")
-    user_id = session["user_id"]
-    #TODO: should this be in BirdSighting
-    results = BirdSighting.query.join(History).filter(History.account_id == user_id).all()
-    bird_sightings = []
-    for result in results:
-        bird = Bird.getBirdbyID(result.bird_id)
-        sighting = {
-            'id': result.id,
-            'bird_id': result.bird_id,
-            'common_name': bird.common_name,
-            'timestamp': result.timestamp,
-            'notes': result.notes,
-            'location': result.location
-        }
-        bird_sightings.append(sighting)
+    bird_sightings = BirdSighting.getHistory(session["user_id"])
+    history_list = []
     
-    return render_template("history.html", bird_sightings=bird_sightings)
+    #merge bird and birdsighting info. Feels hackish
+    for bird_sighting in bird_sightings:
+        bird = Bird.getBirdbyID(bird_sighting.bird_id)
+        
+        history_item = {
+            'common_name': bird.common_name,
+            'bird_id': bird.id,
+            'timestamp': bird_sighting.timestamp,
+            'notes': bird_sighting.notes,
+            'location': bird_sighting.location,
+            'sighting_id': bird_sighting.id            
+        }
+        history_list.append(history_item)        
+        
+    return render_template("history.html", history_list=history_list)
 
 @birdserver.get("/favorites")
 @login_required

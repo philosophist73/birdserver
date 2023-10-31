@@ -4,7 +4,6 @@ from sqlalchemy.orm import mapped_column
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.models import db, Base
-from app.models.history import History
 
 #for login errors
 class AccountException(Exception):
