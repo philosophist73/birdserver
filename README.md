@@ -124,6 +124,7 @@ https://github.com/philosophist73/birdserver.git
 ### HOW TO RUN:
     - Launch application: from birdserver directory: 'flask run'
     - IMPORTANT: make sure you click "yes" when the browser ask for your location
+    - using gunicorn: 'gunicorn app.main:gunicorn_app -b 0.0.0.0:5000 --workers 1 --threads 2 --timeout 0'
 
 ### Code Details:
     - This is a python flask application with bootstrap CSS and javascript front end and a postgresql backend, plus API integration

@@ -1,5 +1,13 @@
 import os
 import logging
+from dotenv import load_dotenv
+
+# Load environment variables from the .env file
+load_dotenv()
+
+# Load environment variables from the .flaskenv file
+load_dotenv('.flaskenv')
+
 
 class Config:
     DEBUG = False

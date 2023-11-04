@@ -5,7 +5,7 @@ from flask import Blueprint, jsonify, Flask, flash, redirect, render_template, r
 from flask_caching import Cache
 from flask import session
 
-from app import cache
+from app.main import cache
 from app.helpers import apology, login_required, lookupNearbyAPI, lookupBirdDetails, getOpenCageLocation
 from app.models.account import Account, AccountException
 from app.models.bird import Bird, BirdException

@@ -2,7 +2,7 @@
 FLASK_ENV="development"
 
 #TODO- why arent these needed anymore??
-#FLASK_APP="app"
+FLASK_APP="app.main:create_app"
 
 #HTTP SESSION
 SESSION_PERMANENT="False"

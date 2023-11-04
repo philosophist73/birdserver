@@ -21,3 +21,9 @@ def create_app():
     Session(app)
     
     return app
+
+if __name__ == '__main__':
+    app = create_app()
+    app.run()
+else:
+    gunicorn_app = create_app()
