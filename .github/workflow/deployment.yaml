@@ -27,6 +27,14 @@ jobs:
     - name: Authentication docker
       run: |
         gcloud auth configure-docker us-central1-docker.pkg.dev
+
+    # add secrets to env file
+    - name: 'Create env file'
+        run: |
+          touch .env
+          echo EBIRD_TOKEN={{ secrets.EBIRD_TOKEN }} >> .env
+          OPENCAGE_KEY={{ secrets.OPENCAGE_KEY }} >> .env
+          SECRET_KEY={{ secrets.SECRET_KEY }} >> .env
       
     # Build the Docker image
     - name: Build the Docker image
