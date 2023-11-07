@@ -29,7 +29,7 @@ jobs:
         gcloud auth configure-docker us-central1-docker.pkg.dev
 
     # add secrets to env file
-    - name: 'Create env file'
+    - name: Create env file
         run: |
           touch .env
           echo EBIRD_TOKEN={{ secrets.EBIRD_TOKEN }} >> .env
