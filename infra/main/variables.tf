@@ -1,7 +1,7 @@
 variable "project_id" {
   description = "The name of the project"
   type        = string
-  default     = "deploy-404001"
+  default     = "birdserver-402118"
 }
 
 variable "region" {
@@ -25,7 +25,7 @@ variable "repository" {
 variable "docker_image" {
   description = "The name of the Docker image in the Artifact Registry repository to be deployed to Cloud Run"
   type        = string
-  default     = "deploy"
+  default     = "birdserver"
 }
 
 variable "first_time" {

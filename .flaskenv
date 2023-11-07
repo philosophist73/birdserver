@@ -14,7 +14,7 @@ SESSION_TYPE="filesystem"
 
 #SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/postgres"
 #TODO: I havent figured out how to make this relative yet. Please update if you arent in dev container environment
-SQLALCHEMY_DATABASE_URI="sqlite:////workspaces/birdserver/sqlite/birdserver.db"
+SQLALCHEMY_DATABASE_URI=sqlite:///../sqlite/birdserver.db
 
 #FLASK_CACHING
 CACHE_TYPE="SimpleCache"

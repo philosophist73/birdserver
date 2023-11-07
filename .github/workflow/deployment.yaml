@@ -11,7 +11,7 @@ jobs:
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     env:
-          IMAGE_NAME: us-central1-docker.pkg.dev/deploy-404001/docker-repository/deploy
+          IMAGE_NAME: us-central1-docker.pkg.dev/birdserver-402118/docker-repository/birdserver
     steps:
     - uses: actions/checkout@v2
 
@@ -24,9 +24,17 @@ jobs:
       uses: 'google-github-actions/setup-gcloud@v0'
 
     # Configure docker to use the gcloud command-line tool as a credential helper
-    - name: Authenthification docker
+    - name: Authentication docker
       run: |
         gcloud auth configure-docker us-central1-docker.pkg.dev
+
+    # add secrets to env file
+    - name: 'Create env file'
+        run: |
+          touch .env
+          echo EBIRD_TOKEN={{ secrets.EBIRD_TOKEN }} >> .env
+          OPENCAGE_KEY={{ secrets.OPENCAGE_KEY }} >> .env
+          SECRET_KEY={{ secrets.SECRET_KEY }} >> .env
       
     # Build the Docker image
     - name: Build the Docker image
