@@ -8,6 +8,15 @@
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
+	"features": {
+		"docker-from-docker": {
+			"version": "latest",
+			"moby": true,
+			"runArgs": ["--init"]
+		},
+		"ghcr.io/dhoeric/features/google-cloud-cli:1": {},
+		"ghcr.io/devcontainers/features/terraform:1": {}
+	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// This can be used to network with other containers or the host.
@@ -26,7 +35,7 @@
 				"mechatroner.rainbow-csv"
             ]
         }
-    },
+    }
 
 	//"containerEnv": {
 	//	"PYTHONPATH": "/workspaces/birdserver",

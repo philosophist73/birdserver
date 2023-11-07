@@ -1,7 +1,7 @@
 variable "project_id" {
   description = "The name of the project"
   type        = string
-  default     = "deploy-404001"
+  default     = "birdserver-402118"
 }
 
 variable "region" {

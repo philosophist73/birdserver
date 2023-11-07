@@ -1,8 +1,8 @@
 # Deploy image to Cloud Run
-resource "google_cloud_run_service" "summarize-text" {
+resource "google_cloud_run_service" "birdserver" {
   provider = google
   count    = var.first_time ? 0 : 1
-  name     = "summarize-text"
+  name     = "birdserver"
   location = var.region
   template {
     spec {
@@ -48,11 +48,11 @@ resource "google_cloud_run_service_iam_policy" "noauth" {
   provider = google
   location = var.region
   project  = var.project_id
-  service  = google_cloud_run_service.summarize-text[0].name
+  service  = google_cloud_run_service.birdserver[0].name
 
   policy_data = data.google_iam_policy.noauth[0].policy_data
 }
 
 output "cloud_run_instance_url" {
-  value = var.first_time ? null : google_cloud_run_service.summarize-text[0].status.0.url
+  value = var.first_time ? null : google_cloud_run_service.birdserver[0].status.0.url
 }

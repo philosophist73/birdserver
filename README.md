@@ -126,6 +126,10 @@ https://github.com/philosophist73/birdserver.git
     - IMPORTANT: make sure you click "yes" when the browser ask for your location
     - using gunicorn: 'gunicorn app.main:gunicorn_app -b 0.0.0.0:5000 --workers 1 --threads 2 --timeout 0'
 
+### HOW TO DEPLOY TO GCP
+    - https://www.fpgmaas.com/blog/deploying-a-flask-api-to-cloudrun 
+    - https://birdserver-5iskpnpvbq-uc.a.run.app
+
 ### Code Details:
     - This is a python flask application with bootstrap CSS and javascript front end and a postgresql backend, plus API integration
     - /birdserver
