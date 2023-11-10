@@ -31,11 +31,11 @@ def after_request(response):
 @birdserver.route("/")
 @login_required
 def index():
-    return render_template("index.html")
+    return render_template("index.html", subtitle="Welcome")
 
 @birdserver.get("/register")
 def register_get():
-    return render_template("register.html")
+    return render_template("register.html", subtitle="Account Registration")
 
 @birdserver.post("/register")
 def register_post():
@@ -61,7 +61,7 @@ def register_post():
 
 @birdserver.get('/login')
 def login_get():
-    return render_template("login.html")
+    return render_template("login.html", subtitle="Account Login")
 
 @birdserver.post('/login')
 def login_post():
@@ -98,7 +98,7 @@ def search_get():
     attr = request.args.get('attr')
     birds = Bird.search(attr, birdname)
     
-    return render_template("birdresults.html", birds=birds)
+    return render_template("birdresults.html", birds=birds, subtitle="Search Results")
 
 @birdserver.get("/birdticker")
 @cache.cached()
@@ -138,7 +138,15 @@ def birddetails_get():
     
     image_url = bird.image_url
     
-    return render_template("bird.html", bird_details=bird_details, bird_id=bird.id, favorite=favorite, watch=watch, image_url=image_url)
+    return render_template(
+        "bird.html", 
+        bird_details=bird_details, 
+        bird_id=bird.id, 
+        favorite=favorite, 
+        watch=watch,
+        image_url=image_url,
+        subtitle=bird.common_name
+    )
 
 @birdserver.post("/create_sighting")
 @login_required
@@ -176,6 +184,7 @@ def history_get():
         
         history_item = {
             'common_name': bird.common_name,
+            'species_code': bird.species_code,
             'bird_id': bird.id,
             'timestamp': bird_sighting.timestamp,
             'notes': bird_sighting.notes,
@@ -184,7 +193,7 @@ def history_get():
         }
         history_list.append(history_item)        
         
-    return render_template("history.html", history_list=history_list)
+    return render_template("history.html", history_list=history_list, subtitle="History")
 
 @birdserver.get("/favorites")
 @login_required
@@ -192,8 +201,9 @@ def favorites_get():
     print("VIEW: favorites")
     
     birds = Favorite.getFavoriteBirds()
-    return render_template("favorites.html", birds=birds)
+    return render_template("favorites.html", birds=birds, subtitle="Favorite Birds")
 
+#TODO: deprecate
 @birdserver.get("/watch")
 @login_required
 def watch_get():
@@ -267,6 +277,7 @@ def edit_sighting():
     #no response needed
     return '', 200
 
+#TODO: deprecate
 @birdserver.post("/add_watch")
 def add_watch():
     print("VIEW: add watch")
@@ -280,6 +291,7 @@ def add_watch():
     #no response needed
     return '', 200
 
+#TODO: deprecate
 @birdserver.post("/remove_watch")
 def remove_watch():
     print("VIEW: remove watch")
@@ -292,3 +304,20 @@ def remove_watch():
 
     #no response needed
     return '', 200
+
+@birdserver.get("/birdsighting")
+@login_required
+def bird_sighting_get():
+    print("VIEW: bird_sighting")
+    bird_sighting_id = request.args.get('id')
+    
+    sighting = BirdSighting.getBirdSightingByID(bird_sighting_id)
+    common_name = Bird.getBirdbyID(sighting.bird_id).common_name
+    
+    return render_template(
+        "birdsighting.html", 
+        sighting=sighting, 
+        common_name=common_name,
+        subtitle="Bird Sighting"
+        )
+

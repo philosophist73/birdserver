@@ -70,3 +70,14 @@ class BirdSighting(Base):
                 
         except Exception as e:
             raise BirdSightingException(str(e))
+    
+    @staticmethod
+    def getBirdSightingByID(bird_sighting_id):
+        try:
+            sightings = BirdSighting.query.filter(BirdSighting.id == bird_sighting_id).all()
+            if (sightings is None):
+                raise BirdSightingException("No sighting found with id: " + str(bird_sighting_id))
+            return sightings[0];
+                
+        except Exception as e:
+            raise BirdSightingException(str(e))

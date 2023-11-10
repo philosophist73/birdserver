@@ -1,27 +1,26 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    BirdResults
+BirdResults
 {% endblock %}
 
 {% block main %}
-    <div class="container mt-5">
-        <h1>Bird Results</h1>
-        <table id="birdResultsTable" class="display">
-            <thead>
-                <tr>
-                    <th>Common Name</th>
-                    <th>Scientific Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for bird in birds %}
-                    <tr>
-                        <td><a href="/bird?species_code={{bird.species_code}}">{{ bird.common_name }}</a></td>
-                        <td>{{ bird.scientific_name }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+<div class="container mb-5" style="margin: 0; padding: 0;">
+    <table id="birdResultsTable" class="display">
+        <thead>
+            <tr>
+                <th>Common Name</th>
+                <th>Scientific Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bird in birds %}
+            <tr>
+                <td><a href="/bird?species_code={{bird.species_code}}">{{ bird.common_name }}</a></td>
+                <td>{{ bird.scientific_name }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

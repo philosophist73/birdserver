@@ -1,19 +1,18 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Favorites
+Favorites
 {% endblock %}
 
 {% block main %}
-    <div class="container mt-5">
-        <h1>Favorites</h1>
-        <ul class="list-group">
-            {% for bird in birds %}
-                <li class="list-group-item">
-                    <a href="/bird?bird_id={{bird.id}}">{{ bird.common_name }}</a><br>
-                    <strong>Scientific Name:</strong> {{ bird.scientific_name }}
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+<div class="container mt-5">
+    <ul class="list-group">
+        {% for bird in birds %}
+        <li class="list-group-item">
+            <a href="/bird?bird_id={{bird.id}}">{{ bird.common_name }}</a><br>
+            <strong>Scientific Name:</strong> {{ bird.scientific_name }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

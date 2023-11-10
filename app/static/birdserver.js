@@ -1,54 +1,3 @@
-var latitude = null;
-var longitude = null;
-
-//Bird Ticker
-document.addEventListener("DOMContentLoaded", function() {
-
-    // Get user's location and fetch birds
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(displayTicker);
-    } else {
-        //TODO- add another API call to get user's location by IP address
-        alert("Geolocation is not supported by this browser.");
-    }
-
-    // Callback function to handle the user's location
-    function displayTicker(position) {
-        latitude = position.coords.latitude;
-        longitude = position.coords.longitude;
-
-        // Now you can use 'latitude' and 'longitude' in your fetch request or anywhere else in your code
-        getNotableBirdSightings(latitude, longitude);
-    }
-
-    //TODO: "cache" this on client side
-    function getNotableBirdSightings(latitude, longitude) {
-        fetch(`/birdticker?latitude=${latitude}&longitude=${longitude}`)  // Pass latitude and longitude as query parameters
-            .then(response => response.json())
-            .then(birds => {
-                const birdListElement = document.getElementById("birdList");
-                birds.forEach(bird => {
-                    const listItem = document.createElement("li");
-                    listItem.textContent = bird;
-                    birdListElement.appendChild(listItem);
-                });
-                scrollBirds();
-            });
-    }
-
-    function scrollBirds() {
-        var birdList = document.getElementById('birdList');
-        var birds = birdList.querySelectorAll('li');
-        var birdWidth = birds[0].offsetWidth;
-        var containerWidth = birdList.offsetWidth;
-
-        var animationDuration = (containerWidth + birdWidth) / 50; // Adjust speed by changing the denominator
-
-        birdList.style.animation = `scrollBirds linear infinite ${animationDuration}s`;
-    }
-});
-
-
 //birdSightingModal
 document.addEventListener('DOMContentLoaded', function() {
     var birdSightingModal = document.getElementById('birdSightingModal');
@@ -76,26 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-//Sorting for the birdSightingsTable
-$(document).ready( function () {
-    var table = $('#birdSightingsTable').DataTable({
-        "columnDefs": [
-            { "searchable": false, "targets": [4] }, // Disable searching for Edit column
-            { "orderable": false, "targets": [4] }  // Disable sorting for Edit column
-        ]
-    });
-
-    //disable pagination if there are 10 or fewer items
-    //TODO: fix, this doesnt work
-    var numItems = table.rows().count();
-    if (numItems <= 10) {
-        table.page.len(-1).draw(); // -1 disables pagination
-    }
-});
-
-//sort and search bird results
-$(document).ready(function() {
-    $('#birdResultsTable').DataTable();
+//datatable for birdSightingsTable and birdResultsTable
+$(document).ready(function () {
+    $('#birdSightingsTable, #birdResultsTable').DataTable();
 });
 
 
