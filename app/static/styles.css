@@ -1,50 +1,42 @@
-/* Size for brand */
 nav .navbar-brand {
-    font-size: xx-large;
+  font-size: xx-large;
+  color: red;
 }
+
+.card {
+  color: red;
+}
+
+.card a {
+  text-decoration: none;
+  /* Remove underline */
+  color: inherit;
+  /* Use the same color as the parent element */
+}
+
+
+.text-xs {
+  font-size: 0.75rem;
+  /* Example value, adjust as needed */
+}
+
+.navbar-nav.flex-wrap.flex-row .nav-item {
+  margin-right: 8px;
+  /* Adjust this value as needed */
+}
+
 .search-button {
-    float: left;
-    width: 20%;
-    padding: 10px;
-    background: #2196F3;
-    color: white;
-    font-size: 17px;
-    border: 1px solid grey;
-    border-left: none;
-    cursor: pointer;
-  }
-
-  .search-button:hover {
-    background: #0b7dda;
-  }
-
-  .scroll-container {
-    overflow: hidden;
-    position: fixed; /* Set position to fixed */
-    bottom: 0; /* Align to the bottom of the screen */
-    left: 0; /* Align to the left edge */
-    white-space: nowrap;
-    width: 100%;
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
 }
 
-.bird-list {
-    display: inline-block;
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-    
-}
-
-.bird-list li {
-    display: inline-block;
-    margin-right: 20px; /* Adjust spacing between birds */
-}
-
-@keyframes scrollBirds {
-    from {
-        transform: translateX(100%);
-    }
-    to {
-        transform: translateX(-100%);
-    }
+.search-button:hover {
+  background: #0b7dda;
 }

@@ -1,86 +1,96 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Bird
+Bird
 {% endblock %}
 
 {% block main %}
-    <div class="container mt-5">
+<div class="container mt-5">
 
-        {% for bird_detail in bird_details %}
+    {% for bird_detail in bird_details %}
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <!-- hidden field for jquery to update favorite and watch lists-->
+            <input type="hidden" id="bird_id" name="bird_id" value="{{ bird_id }}">
+            <h1 class="text-center mb-4">{{ bird_detail.comName }}</h1>
+            <form>
+                <button type="button" class="btn btn-success ml-2" style="margin-left: 1rem;" data-bs-toggle="modal"
+                    data-bs-target="#birdSightingModal">
+                    Create Bird Sighting
+                </button>
+                <!-- add heart icon- solid for favorite-->
+                {% if favorite %}
+                <i class="fas fa-heart ml-2" id="favorite-icon" style="color: red; font-size: 2em;"></i>
+                {% else %}
+                <i class="far fa-heart ml-2" id="favorite-icon" style="color: red; font-size: 2em;"></i>
+                {% endif %}
+                <!-- add eye icon- solid for watched-->
+                <!--
+                {% if watch %}
+                    <i class="fa-solid fa-eye ml-2" id="watch-icon" style="font-size: 2em;"></i>
+                {% else %}
+                    <i class="fa-solid fa-eye-slash ml-2" id="watch-icon" style="font-size: 2em;"></i>
+                {% endif %}
+                -->
+            </form>
             <div class="row">
                 <div class="col-md-8 mx-auto">
+                    <img src="{{ image_url }}" alt="Bird Image"
+                        style="max-width: 100%; height: auto; float: left; margin-right: 10px;">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <table class="table table-striped table-bordered">
 
-                    <!-- hidden field for jquery to update favorite and watch lists-->
-                    <input type="hidden" id="bird_id" name="bird_id" value="{{ bird_id }}">
-                    <h1 class="text-center mb-4">{{ bird_detail.comName }}</h1>
-                    <form >
-                        <button type="button" class="btn btn-success ml-2" style="margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#birdSightingModal">
-                            Create Bird Sighting
-                        </button>
-                        <!-- add heart icon- solid for favorite-->
-                        {% if favorite %}
-                            <i class="fas fa-heart ml-2" id="favorite-icon" style="color: red; font-size: 2em;"></i>
-                        {% else %}
-                            <i class="far fa-heart ml-2" id="favorite-icon" style="color: red; font-size: 2em;"></i>
+                        {% for key, value in bird_detail.items() %}
+                        {% if key != 'comName' %}
+                        <tr style="height: 50px;"> <!-- Adjust the height as needed -->
+                            <th class="bg-light text-dark">{{ key }}</th>
+                            <td>{{ value }}</td>
+                        </tr>
                         {% endif %}
-                        <!-- add eye icon- solid for watched-->
-                        {% if watch %}
-                            <i class="fa-solid fa-eye ml-2" id="watch-icon" style="font-size: 2em;"></i>
-                        {% else %}
-                            <i class="fa-solid fa-eye-slash ml-2" id="watch-icon" style="font-size: 2em;"></i>
-                        {% endif %}
-                    </form>
-                    <div class="row">
-                        <div class="col-md-8 mx-auto d-flex">
-                            <img src="{{ image_url }}" alt="Bird Image" style="float: left; margin-right: 10px;" class="img-fluid">
-                            <table class="table table-striped table-bordered" style="height: 100%;">
-                                {% for key, value in bird_detail.items() %}
-                                    {% if key != 'comName' %}
-                                        <tr style="height: 50px;"> <!-- Adjust the height as needed -->
-                                            <th class="bg-light text-dark">{{ key }}</th>
-                                            <td>{{ value }}</td>
-                                        </tr>
-                                    {% endif %}
-                                {% endfor %}
-                            </table>
-                        </div>
-                    </div>
+                        {% endfor %}
+                    </table>
                 </div>
             </div>
-            <!-- Modal -->
-            <div class="modal fade" id="birdSightingModal" tabindex="-1" aria-labelledby="birdSightingModal" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="birdSightingModal">Bird Sighting Form</h5>
-                            <!--TODO: add this close back-->
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="sightingForm" action="/create_sighting" method="post">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="comName" name="comName" value="{{ bird_detail.comName }}" readonly>
-                                    <input type="hidden" class="form-control" id="speciesCode" name="speciesCode" value="{{ bird_detail.speciesCode }}" readonly>
-                                </div>
-                                <div class="form-group">
-                                    <label for="timestamp">Timestamp:</label>
-                                    <input type="datetime-local" class="form-control" id="timestamp" name="timestamp" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="notes">Notes:</label>
-                                    <textarea class="form-control" id="notes" name="notes" rows="4"></textarea>
-                                </div>
-                                <input type="hidden" name="latitude" id="modal_latitude">
-                                <input type="hidden" name="longitude" id="modal_longitude">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
+        </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="birdSightingModal" tabindex="-1" aria-labelledby="birdSightingModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="birdSightingModal">Bird Sighting Form</h5>
+                    <!--TODO: add this close back-->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="sightingForm" action="/create_sighting" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="comName" name="comName"
+                                value="{{ bird_detail.comName }}" readonly>
+                            <input type="hidden" class="form-control" id="speciesCode" name="speciesCode"
+                                value="{{ bird_detail.speciesCode }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="timestamp">Timestamp:</label>
+                            <input type="datetime-local" class="form-control" id="timestamp" name="timestamp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Notes:</label>
+                            <textarea class="form-control" id="notes" name="notes" rows="4"></textarea>
+                        </div>
+                        <input type="hidden" name="latitude" id="modal_latitude">
+                        <input type="hidden" name="longitude" id="modal_longitude">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}
