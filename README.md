@@ -126,6 +126,12 @@ https://github.com/philosophist73/birdserver.git
     - IMPORTANT: make sure you click "yes" when the browser ask for your location
     - using gunicorn: 'gunicorn app.main:gunicorn_app -b 0.0.0.0:5000 --workers 1 --threads 2 --timeout 0'
 
+### HOW TO DOCKERIZE and run
+    - from project root: 'docker build . -t birdserver'
+    - 'docker run -p 5000:5000 birdserver'
+    - don't forget to clean up your containers and any orphaned images
+
+<!-- TODO: document -->
 ### HOW TO DEPLOY TO GCP
     - https://www.fpgmaas.com/blog/deploying-a-flask-api-to-cloudrun 
     - https://birdserver-5iskpnpvbq-uc.a.run.app

@@ -15,7 +15,8 @@
 			"runArgs": ["--init"]
 		},
 		"ghcr.io/dhoeric/features/google-cloud-cli:1": {},
-		"ghcr.io/devcontainers/features/terraform:1": {}
+		"ghcr.io/devcontainers/features/terraform:1": {},
+		"ghcr.io/warrenbuckley/codespace-features/sqlite:1": {}
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
