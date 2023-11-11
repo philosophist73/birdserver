@@ -16,7 +16,8 @@
 		},
 		"ghcr.io/dhoeric/features/google-cloud-cli:1": {},
 		"ghcr.io/devcontainers/features/terraform:1": {},
-		"ghcr.io/warrenbuckley/codespace-features/sqlite:1": {}
+		"ghcr.io/warrenbuckley/codespace-features/sqlite:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {}
 	},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
@@ -30,11 +31,12 @@
 	"customizations": {
         "vscode": {
             "extensions": [
-                "GitHub.copilot",
+				"GitHub.copilot",
 				"ms-azuretools.vscode-docker",
 				"ms-python.python",
-				"mechatroner.rainbow-csv"
-            ]
+				"mechatroner.rainbow-csv",
+				"Gruntfuggly.todo-tree"
+			]
         }
     }
 

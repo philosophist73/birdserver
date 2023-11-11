@@ -7,7 +7,7 @@ from config import Config
 from sqlalchemy import create_engine
 
 config = Config()
-#TODO: hard coded to directory for now (./sqlite)
+#BUG: hard coded to directory for now (./sqlite)
 engine = create_engine("sqlite:///./sqlite/birdserver.db", echo=True)
 
 # Now you can create tables based on your models
