@@ -1,5 +1,11 @@
 # Birdserver
-### Video Demo: https://youtu.be/H2qSsxp02Aw
+
+## public URL
+https://birdserver.philosophist.me
+
+### Video Demo: 
+https://youtu.be/H2qSsxp02Aw
+
 ### Description: 
 A personal website to log bird sightings and favorite birds and add a watch list of birds you want to see. This application connects with Cornell Labs eBird API for detailed bird information and OpenCage to translate GPS location to an address
 
@@ -114,7 +120,6 @@ https://github.com/philosophist73/birdserver.git
     
     **Setup Database if NOT running in dev container**
     - from birdserver directory: 'python db_setup.py'. This will set up your sqlite tables
-        - BUG: if this fails, you may need to create a /sqlite directory at top of your workspace (ie same level as /app and /migrations) 
     - from birdserver directory: 'python load_birds.py'. This will load all the birds from the migrations/birds.csv
     - **BUG**: if you are in a dev container, my original implementation of this uses PostgreSQL. in fact, the dev container has two containers one for flask and one for the database. to use this:
         - 'pip install psycopg2'
@@ -126,6 +131,12 @@ https://github.com/philosophist73/birdserver.git
     - IMPORTANT: make sure you click "yes" when the browser ask for your location
     - using gunicorn: 'gunicorn app.main:gunicorn_app -b 0.0.0.0:5000 --workers 1 --threads 2 --timeout 0'
 
+### HOW TO DOCKERIZE and run
+    - from project root: 'docker build . -t birdserver'
+    - 'docker run -p 5000:5000 birdserver'
+    - don't forget to clean up your containers and any orphaned images
+
+<!-- TODO: document -->
 ### HOW TO DEPLOY TO GCP
     - https://www.fpgmaas.com/blog/deploying-a-flask-api-to-cloudrun 
     - https://birdserver-5iskpnpvbq-uc.a.run.app
