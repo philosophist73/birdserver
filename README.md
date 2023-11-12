@@ -141,6 +141,10 @@ https://github.com/philosophist73/birdserver.git
     - https://www.fpgmaas.com/blog/deploying-a-flask-api-to-cloudrun 
     - https://birdserver-5iskpnpvbq-uc.a.run.app
 
+### Github command line
+- in order to use github command line, you have to manually auth everytime the devcontainer is rebuilt. I have an issue to automate this: automate auth of gh CLI when devcontainer is rebuilt #39
+- command: 'gh auth login'
+
 ### Code Details:
     - This is a python flask application with bootstrap CSS and javascript front end and a postgresql backend, plus API integration
     - /birdserver
