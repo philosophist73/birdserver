@@ -4,8 +4,9 @@
 # Ignore the virtual environment directory
 .venv/
 
-# Ignore the Flask session directory
+# Ignore the Flask session and instance directories
 flask_session/
+/instance/*
 
 ### Python ###
 # Byte-compiled / optimized / DLL files

@@ -118,10 +118,11 @@ https://github.com/philosophist73/birdserver.git
         - add an OPENCAGE_KEY entry with that value in the .env file (OPENCAGE_KEY="")
         - Alternatively contact me directly and I will provide
     
-    **Setup Database if NOT running in dev container**
-    - from birdserver directory: 'python db_setup.py'. This will set up your sqlite tables
-    - from birdserver directory: 'python load_birds.py'. This will load all the birds from the migrations/birds.csv
-    - **BUG**: if you are in a dev container, my original implementation of this uses PostgreSQL. in fact, the dev container has two containers one for flask and one for the database. to use this:
+    **Setup Database if NOT running in dev container or you want to ensure you have latest version**
+    - from migrations directory: './db_setup.sh'. This will copy the preloaded database (migrations/preloaded-birdserver.db to /instance/birdserver.db for use by the application)
+    - if you want to recreate the database checked into git from scratch, './db_setup.sh --update'
+    - and if you want to redownload all the latest bird images from ebird.org, './db_setup.sh --images'. This will update the birds.csv file checked in to git. You shouldnt have to do this, but if you do, it will take ~20 minutes. Also, you will need to update the database, so will almost always run these arguments together: '.db_setup.sh --images --update'
+    - **BUTODOG**: if you are in a dev container, my original implementation of this uses PostgreSQL. in fact, the dev container has two containers one for flask and one for the database. to use this:
         - 'pip install psycopg2'
         - in .flaskenv change SQLALCHEMY_DATABASE_URI to use "postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/postgres"
         - if you want to see what's in the database, you can install pgAdmin at https://www.pgadmin.org/ and connect to this database on port 5432
