@@ -10,16 +10,16 @@ resource "google_cloud_run_service" "birdserver" {
         image = "${var.region}-docker.pkg.dev/${var.project_id}/${var.repository}/${var.docker_image}"
         resources {
           limits = {
-            cpu    = "2"
-            memory = "8G"
+            cpu    = "1"
+            memory = "4G"
           }
         }
       }
     }
     metadata {
       annotations = {
-        "autoscaling.knative.dev/minScale" = "1"
-        "autoscaling.knative.dev/maxScale" = "20"
+        "autoscaling.knative.dev/minScale" = "0"
+        "autoscaling.knative.dev/maxScale" = "3"
       }
     }
   }
