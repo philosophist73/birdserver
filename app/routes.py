@@ -5,7 +5,6 @@ from flask import Blueprint, jsonify, Flask, flash, redirect, render_template, r
 from flask_caching import Cache
 from flask import session
 
-from app.main import cache
 from app.helpers import apology, login_required, lookupNearbyAPI, lookupBirdDetails, getOpenCageLocation
 from app.models.account import Account, AccountException
 from app.models.bird import Bird, BirdException
@@ -13,7 +12,6 @@ from app.models.birdsighting import BirdSighting, BirdSightingException
 from app.models.favorite import Favorite, FavoriteException
 from app.models.watch import Watch, WatchException
 
-#TODO: move this to __init__.py
 birdserver = Blueprint('birdserver', __name__)
 
 @birdserver.route('/test')
@@ -100,8 +98,9 @@ def search_get():
     
     return render_template("birdresults.html", birds=birds, subtitle="Search Results")
 
+#TODO: deprecated
 @birdserver.get("/birdticker")
-@cache.cached()
+#@cache.cached()
 def birdticker_get():
     print("VIEW: birdticker")
     latitude = request.args.get('latitude')
@@ -320,4 +319,7 @@ def bird_sighting_get():
         common_name=common_name,
         subtitle="Bird Sighting"
         )
+    
+def register_routes(app):
+    app.register_blueprint(birdserver)
 

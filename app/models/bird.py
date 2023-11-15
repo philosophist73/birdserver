@@ -15,16 +15,18 @@ class Bird(Base):
     species_code = mapped_column(String, unique=True, nullable=False)
     common_name = mapped_column(String, unique=True, nullable=False)
     scientific_name = mapped_column(String, unique=True, nullable=False)
-    image_url = mapped_column(String)
+    image_url = mapped_column(String, nullable=False)
+    small_image_url = mapped_column(String, nullable=False)
     
     def __repr__(self):
-        return f'<Bird (ID: {self.id}, Common Name: {self.common_name}, Species Code: {self.species_code}, Scientific Name: {self.scientific_name})>'
+        return f'<Bird (ID: {self.id}, Common Name: {self.common_name}, Species Code: {self.species_code}, Scientific Name: {self.scientific_name}, Image URL: {self.image_url}, Small Image URL: {self.small_image_url} )>'
     
-    def __init__(self, species_code, common_name, scientific_name, image_url):
+    def __init__(self, species_code, common_name, scientific_name, image_url, small_image_url):
         self.species_code = species_code
         self.common_name = common_name
         self.scientific_name = scientific_name
         self.image_url = image_url
+        self.small_image_url = small_image_url
     
     @staticmethod
     def search(attr="common_name", bird_name=""):

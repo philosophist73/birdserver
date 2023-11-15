@@ -6,7 +6,7 @@ WORKDIR /flask-docker
 COPY . /flask-docker
 
 # Copy the preloaded database into the container (note: to rebuild the database before building the container, refer to the readme)
-COPY ./migrations/birdserver-preloaded.db /flask-docker/sqlite/birdserver.db
+COPY ./migrations/birdserver-preloaded.db /flask-docker/instance/birdserver.db
 
 # Install pip requirements
 RUN pip3 install virtualenv
